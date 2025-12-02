@@ -28,5 +28,5 @@ pub fn run(day: i32) {
         1 => Day1::run(),
         _ => println!("Day {day} not implemented"),
     }
-    println!("");
+    println!();
 }

@@ -3,6 +3,34 @@ use std::fs;
 
 pub struct Day1;
 
+impl Day<Vec<Rotation>> for Day1 {
+    fn read_input() -> Vec<Rotation> {
+        let input = fs::read_to_string("resources/day1.txt").expect("file day1.txt not found");
+        parse_input(&input)
+    }
+
+    fn part1(input: &Vec<Rotation>) -> impl std::fmt::Display {
+        let mut dial = Dial::new();
+        let mut zero_count = 0;
+        for rotation in input {
+            dial.turn(rotation);
+            if dial.get_position() == 0 {
+                zero_count += 1;
+            }
+        }
+        zero_count
+    }
+
+    fn part2(input: &Vec<Rotation>) -> impl std::fmt::Display {
+        let mut dial = Dial::new();
+        let mut zero_count = 0;
+        for rotation in input {
+            zero_count += dial.turn_zero_count(rotation);
+        }
+        zero_count
+    }
+}
+
 #[derive(Debug, Clone, Eq, PartialEq, Hash, Copy)]
 pub enum Direction {
     Right,
@@ -31,11 +59,8 @@ struct Dial {
 }
 
 impl Dial {
-
     fn new() -> Self {
-        Self {
-            raw_position: 50
-        }
+        Self { raw_position: 50 }
     }
 
     fn turn(&mut self, rotation: &Rotation) {
@@ -45,6 +70,8 @@ impl Dial {
         }
     }
 
+    /// Adds extra logic to the turn that tracks how often the position passes through 0.
+    /// Normalizes the raw_position onto the 0-99 scale.
     fn turn_zero_count(&mut self, rotation: &Rotation) -> i32 {
         let initial_position = self.raw_position;
         self.turn(rotation);
@@ -58,34 +85,6 @@ impl Dial {
 
     fn get_position(&self) -> i32 {
         self.raw_position.rem_euclid(100)
-    }
-}
-
-impl Day<Vec<Rotation>> for Day1 {
-    fn read_input() -> Vec<Rotation> {
-        let input = fs::read_to_string("resources/day1.txt").expect("file day1.txt not found");
-        parse_input(&input)
-    }
-
-    fn part1(input: &Vec<Rotation>) -> impl std::fmt::Display {
-        let mut dial = Dial::new();
-        let mut zero_count = 0;
-        for rotation in input {
-            dial.turn(rotation);
-            if dial.get_position() == 0 {
-                zero_count += 1;
-            }
-        }
-        zero_count
-    }
-
-    fn part2(input: &Vec<Rotation>) -> impl std::fmt::Display {
-        let mut dial = Dial::new();
-        let mut zero_count = 0;
-        for rotation in input {
-            zero_count += dial.turn_zero_count(rotation);
-        }
-        zero_count
     }
 }
 
