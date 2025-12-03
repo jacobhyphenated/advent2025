@@ -1,6 +1,9 @@
 mod day1;
+mod day2;
 
 use day1::Day1;
+use day2::Day2;
+
 use std::fmt::Display;
 use std::time::Instant;
 
@@ -26,6 +29,7 @@ pub fn run(day: i32) {
     println!("Day {day}:");
     match day {
         1 => Day1::run(),
+        2 => Day2::run(),
         _ => println!("Day {day} not implemented"),
     }
     println!();

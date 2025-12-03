@@ -84,6 +84,7 @@ impl Dial {
     }
 
     fn get_position(&self) -> i32 {
+        // Don't use '%' operator as it is not the mathmatical modulo operator
         self.raw_position.rem_euclid(100)
     }
 }
