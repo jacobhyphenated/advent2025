@@ -1,4 +1,3 @@
-
 use super::Day;
 use std::fs;
 
@@ -38,7 +37,6 @@ impl Day<Vec<Vec<u32>>> for Day3 {
             let mut p = [0,0,0,0,0,0,0,0,0,0,0,0];
 
             for i in 0 .. bank.len() {
-
                 // loop through the pointers and update
                 for n in 0 .. 12 {
                     let offset = 12 - n;
